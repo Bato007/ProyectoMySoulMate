@@ -1,0 +1,5 @@
+[auth]
+token=6dc924b353614ba29380ecbbbed9d9dff26a66c52c57416f9da168ce67b7827d
+[defaults]
+org=neo4j-inc
+project=neo4j-bloom
