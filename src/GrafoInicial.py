@@ -31,13 +31,13 @@ G.add_node("Twenty One Pilots")
 G.add_node("Charlotte Lawrence")
 G.add_node("Doja Cat")
 
-print ("Nodos: ", G.nodes())
+#print ("Nodos: ", G.nodes())
 
 #Agregar aristas (25)
 G.add_edge("Little Mix"," Meghan Trainor")
 G.add_edge("Bebe Rexha","Ariana Grande")
 G.add_edge("Ava Max","Lady Gaga")
-G.add_edge("Ava Max"," Bebe Rexha")
+G.add_edge("Ava Max","Bebe Rexha")
 G.add_edge("Lady Gaga","Demi Lovato")
 G.add_edge("Lady Gaga","Bea Miller")
 G.add_edge("Bebe Rexha","Hailee Steinfeld")
@@ -59,6 +59,15 @@ G.add_edge("Zara Larsson","Zedd")
 G.add_edge("Zara Larsson","Twenty One Pilots")
 G.add_edge("Sabrina Carpenter","Charlotte Lawrence")
 G.add_edge("Sabrina Carpenter","Doja Cat")
+G.add_edge("Demi Lovato", "Melanie Martinez")
+G.add_edge("Halsey", "Dua Lipa")
+G.add_edge("Hailee Steinfeld","Little Mix")
 
-print ("Aristas: ", G.edges())
+
+#print ("Aristas: ", G.edges())
+
+
+#Orden DFS del grafo
+print ("DFS:")
+print (list(nx.dfs_preorder_nodes(G,"Ava Max")))
 
