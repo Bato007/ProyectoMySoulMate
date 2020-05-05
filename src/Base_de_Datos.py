@@ -1,4 +1,5 @@
 import re
+from Clases import *
 
 def realizar_base():
     base = [] #array de array
@@ -18,22 +19,26 @@ def realizar_base():
         base.append(item) #Se agrega a la base
    
     for artist in base: #Por cada artista en la base
+        actual = []
         contador = 1;  #Se tienen tres elementos> nombre, canciones, similares
         if len(artist)==3:
-            actual = []
             if contador == 1:
                 actual.append(artist[0]) #Se agrega nombre
                 contador = contador+1
             if contador == 2:
+                temp = []
                 result = re.findall("\[(.*?)\]", artist[1])
-                actual.append(result) #Se agregan las canciones
+                
+                for item in result:
+                    temp2 = item.split(',')
+                    temp.append(Cancion(temp2[0], temp2[1], temp2[2])) #Se agregan las canciones
+                actual.append(temp)
                 contador+=1
             if contador==3:
                 result = re.findall("\[(.*?)\]", artist[2])
                 for item in result:
                     result = item.split(',')
                 actual.append(result) #Se agregan los similares
-                final.append(actual) #Se inserta el artista actual a la db final
-        
+                final.append(Artista(actual[0], actual[1], actual[2])) #Se inserta el artista actual a la db final
+    
     return final #Se retorna la base
-

@@ -1,6 +1,6 @@
 class Artista:
     
-    def _init_(self, artist_name, songs, similar_artists):
+    def __init__(self, artist_name, songs, similar_artists):
         self.artist_name = artist_name
         self.songs = songs[:]
         self.similar_artists = similar_artists[:]
@@ -10,7 +10,7 @@ class Artista:
             
 class Cancion:
     
-    def _init_(self, song_name, album, song_genre):
+    def __init__(self, song_name, album, song_genre):
         self.song_name = song_name
         self.album = album
         self.song_genre = song_genre
