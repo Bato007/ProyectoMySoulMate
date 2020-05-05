@@ -1,4 +1,3 @@
-**Formato** nombreAutor;(listaCanciones){(Cancion1)[nombreCancion, album, genero], (Cancion2)[nombreCancion, album, genero]}; {nombreAutor, nombrreAutor, nombreAutor}
+Camila Cabello;[My Oh My, Romance, Pop],[Señorita, Shawn Mendes, Pop];[Top, Ava Max, 5SOS, Zara Larsson, Bebe Rexha, Dua Lipa]
+Dua Lipa;[Physical, Future Nostalgia, Electro-Pop],[One Kiss, One Kiss, Dance-Pop];[Anne_Marie, Halsey, Camila Cabello]
 
-Camila Cabello;{[My Oh My, Romance, Pop], [Señorita, Shawn Mendes, Pop]}; {Top, Ava Max, 5SOS, Zara Larsson, Bebe Rexha, Dua Lipa}
-Dua Lipa;{[Physical, Future Nostalgia, Electro-Pop], [One Kiss, One Kiss, Dance-Pop]}; {Anne_Marie, Halsey, Camila Cabello}
