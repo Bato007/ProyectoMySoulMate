@@ -4,7 +4,7 @@ import networkx as nx
 def generar_grafo(nombre_artista):
     G = nx.DiGraph()
 
-    # agegar nodos (27)
+    # agegar nodos (26)
     G.add_node("Ava Max")
     G.add_node("Dua Lipa")
     G.add_node("Melanie Martinez")
@@ -29,7 +29,6 @@ def generar_grafo(nombre_artista):
     G.add_node("Sia")
     G.add_node("Diplo")
     G.add_node("Zedd")
-    G.add_node("Twenty One Pilots")
     G.add_node("Charlotte Lawrence")
     G.add_node("Doja Cat")
 
@@ -58,7 +57,6 @@ def generar_grafo(nombre_artista):
     G.add_edge("Little Mix","Zara Larsson")
     G.add_edge("Little Mix","Sabrina Carpenter")
     G.add_edge("Zara Larsson","Zedd")
-    G.add_edge("Zara Larsson","Twenty One Pilots")
     G.add_edge("Sabrina Carpenter","Charlotte Lawrence")
     G.add_edge("Sabrina Carpenter","Doja Cat")
     G.add_edge("Demi Lovato", "Melanie Martinez")
@@ -73,7 +71,8 @@ def generar_grafo(nombre_artista):
     G.add_edge("5SOS","Jonas Brothers")
     G.add_edge("Jonas Brothers","5SOS")
     G.add_edge("Clean Bandit","Doja Cat")
-    G.add_edge("Twenty One Pilots","Sia")
+    G.add_edge("Zedd","Sia")
+    G.add_edge("Machine Gun Kelly","Anne-Marie")
 
     #Orden DFS del grafo
     return (list(nx.dfs_preorder_nodes(G,nombre_artista)))
