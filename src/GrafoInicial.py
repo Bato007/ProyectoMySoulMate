@@ -64,6 +64,16 @@ def generar_grafo(nombre_artista):
     G.add_edge("Demi Lovato", "Melanie Martinez")
     G.add_edge("Halsey", "Dua Lipa")
     G.add_edge("Hailee Steinfeld","Little Mix")
+    G.add_edge("Diplo","Doja Cat")
+    G.add_edge("Diplo","Halsey")
+    G.add_edge("Sia","Machine Gun Kelly")
+    G.add_edge("Sia","Zedd")
+    G.add_edge("Sam Smith","Charlotte Lawrence")
+    G.add_edge("Bea Miller","Meghan Trainor")
+    G.add_edge("5SOS","Jonas Brothers")
+    G.add_edge("Jonas Brothers","5SOS")
+    G.add_edge("Clean Bandit","Doja Cat")
+    G.add_edge("Twenty One Pilots","Sia")
 
     #Orden DFS del grafo
     return (list(nx.dfs_preorder_nodes(G,nombre_artista)))
