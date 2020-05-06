@@ -1,4 +1,4 @@
-Camila Cabello;[My Oh My, Romance, Pop],[Señorita, Shawn Mendes, Pop];[Top, Ava Max, 5SOS, Zara Larsson, Bebe Rexha, Dua Lipa]
+Camila Cabello;[My Oh My, Romance, Pop],[Señorita, Shawn Mendes, Pop];[Ava Max, 5SOS, Zara Larsson, Bebe Rexha, Dua Lipa]
 Dua Lipa;[Physical, Future Nostalgia, Electro-Pop],[One Kiss, One Kiss, Dance-Pop];[Anne Marie, Halsey, Camila Cabello]
 5SOS;[Youngblood, Youngblood, Pop],[She Looks So Perfect, 5 Seconds of Summer, Pop Rock];[Camila Cabello]
 Halsey;[You Should Be Sad, Manic, Pop Alternativo],[Castle, Badlands, Electro-Pop];[Diplo, Dua Lipa, Melanie Martinez, Sia]

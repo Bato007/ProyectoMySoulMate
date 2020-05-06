@@ -61,8 +61,6 @@ def buscar_artista(nombre_artista):
     
     for artista in final:
         if(artista.artist_name == nombre_artista):
-            print('artista ingresado', nombre_artista)
-            print('grafo', generar_grafo(nombre_artista))
             return generar_grafo(nombre_artista)
     
 
@@ -81,18 +79,10 @@ def buscar_cancion(grafo):
                 artista_actual = posible[elegido] #Se selecciona ese artista
                 seguir = False #Ya no hay necesidad de seguir moviendonos
         contador+=1
-                
-    
-    print('Similares del elegido del grafo', artista_actual)
-    
+                    
     for item in final:
         if artista_actual == item.artist_name:
             elegido = random.randint(0, len(item.songs)-1) #Se genera un numero aleatorio entre las canciones posibles
                     
             return item.songs[elegido].getInfo() #Se obtiene una cancion aleatoria
             
-            
-#Como se debe de usar
-print(mostrar_base()) #Para mostrar la base
-grafo = buscar_artista('Bea Miller') #Para buscar un artista
-print(buscar_cancion(grafo)) #Para encontrar la cancion recomendada
