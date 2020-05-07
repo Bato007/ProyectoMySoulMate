@@ -34,7 +34,7 @@ def generar_grafo(nombre_artista):
 
     #print ("Nodos: ", G.nodes())
 
-    #Agregar aristas (25)
+    #Agregar aristas
     G.add_edge("Little Mix"," Meghan Trainor")
     G.add_edge("Bebe Rexha","Ariana Grande")
     G.add_edge("Ava Max","Lady Gaga")
@@ -73,6 +73,7 @@ def generar_grafo(nombre_artista):
     G.add_edge("Clean Bandit","Doja Cat")
     G.add_edge("Zedd","Sia")
     G.add_edge("Machine Gun Kelly","Anne-Marie")
+    G.add_edge("Doja Cat", "Zedd")
 
     #Orden DFS del grafo
     return (list(nx.dfs_preorder_nodes(G,nombre_artista)))
