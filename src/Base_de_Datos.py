@@ -1,7 +1,15 @@
-import re
-import random
-from Clases import *
-from GrafoInicial import *
+# Autores:
+# Martin Amado 19020
+# Andrea Amaya 19357
+# Brandon Hernández 19376
+# 
+# Fecha: 6-05-2020
+# Nombre: Base_de_Datos.py
+
+import re #Para separar la base
+import random #Para generar cancion aleatoria
+from Clases import * #El array de array contendra objetos artistas y objetos canciones
+from GrafoInicial import * #Grafo con las recomendaciones
 
 
 def realizar_base():
@@ -59,6 +67,7 @@ def mostrar_base():
     
     return info_final #Se retorna
 
+#Param: nombre del artista a buscar dentro de la base
 def buscar_artista(nombre_artista):
     final = realizar_base() #Se obtiene la base
     
@@ -67,7 +76,7 @@ def buscar_artista(nombre_artista):
             return generar_grafo(nombre_artista) #Se retorna el grafo
     return None #Se retorna vacio
     
-
+#Param: grafo con las recomendaciones posible del artista
 def buscar_cancion(grafo):
     final = realizar_base() #Se obtiene la base
     seguir = True

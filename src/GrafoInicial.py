@@ -1,6 +1,14 @@
+# Autores:
+# Martin Amado 19020
+# Andrea Amaya 19357
+# Brandon Hernández 19376
+# 
+# Fecha: 6-05-2020
+# Nombre: GrafoInicial.py
 
 import networkx as nx
 
+#Param: nombre_artista a recomendar
 def generar_grafo(nombre_artista):
     G = nx.DiGraph()
 
