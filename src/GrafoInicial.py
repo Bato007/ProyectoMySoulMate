@@ -4,7 +4,7 @@ import networkx as nx
 def generar_grafo(nombre_artista):
     G = nx.DiGraph()
 
-    # agegar nodos (27)
+    # agegar nodos (26)
     G.add_node("Ava Max")
     G.add_node("Dua Lipa")
     G.add_node("Melanie Martinez")
@@ -29,13 +29,12 @@ def generar_grafo(nombre_artista):
     G.add_node("Sia")
     G.add_node("Diplo")
     G.add_node("Zedd")
-    G.add_node("Twenty One Pilots")
     G.add_node("Charlotte Lawrence")
     G.add_node("Doja Cat")
 
     #print ("Nodos: ", G.nodes())
 
-    #Agregar aristas (25)
+    #Agregar aristas
     G.add_edge("Little Mix"," Meghan Trainor")
     G.add_edge("Bebe Rexha","Ariana Grande")
     G.add_edge("Ava Max","Lady Gaga")
@@ -58,12 +57,23 @@ def generar_grafo(nombre_artista):
     G.add_edge("Little Mix","Zara Larsson")
     G.add_edge("Little Mix","Sabrina Carpenter")
     G.add_edge("Zara Larsson","Zedd")
-    G.add_edge("Zara Larsson","Twenty One Pilots")
     G.add_edge("Sabrina Carpenter","Charlotte Lawrence")
     G.add_edge("Sabrina Carpenter","Doja Cat")
     G.add_edge("Demi Lovato", "Melanie Martinez")
     G.add_edge("Halsey", "Dua Lipa")
     G.add_edge("Hailee Steinfeld","Little Mix")
+    G.add_edge("Diplo","Doja Cat")
+    G.add_edge("Diplo","Halsey")
+    G.add_edge("Sia","Machine Gun Kelly")
+    G.add_edge("Sia","Zedd")
+    G.add_edge("Sam Smith","Charlotte Lawrence")
+    G.add_edge("Bea Miller","Meghan Trainor")
+    G.add_edge("5SOS","Jonas Brothers")
+    G.add_edge("Jonas Brothers","5SOS")
+    G.add_edge("Clean Bandit","Doja Cat")
+    G.add_edge("Zedd","Sia")
+    G.add_edge("Machine Gun Kelly","Anne-Marie")
+    G.add_edge("Doja Cat", "Zedd")
 
     #Orden DFS del grafo
     return (list(nx.dfs_preorder_nodes(G,nombre_artista)))
