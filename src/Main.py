@@ -17,9 +17,9 @@ recomendaciones = [ ]
 aux = ""
 
 # Iniciando Menu
-print("|\tBienvenido a su Recomendador de Canciones")
+
 while(opcion != "3"):
-    
+    print("|\tBienvenido a su Recomendador de Canciones")
     # Mostrando menu
     print("|\n| 1. Obtener Recomendacion")
     print("| 2. Historial de Recomendaciones")
@@ -31,9 +31,9 @@ while(opcion != "3"):
         
         # Mostrando Base de Datos
         for i in BD.mostrar_base():
-            aux = "|"
+            aux = "| "
             for j in i:
-                aux += " " + str(j)
+                aux += j
             print(aux)
         nombre_artista = input("| Ingrese su artista favorito para recomendarle una cancion: ")
         
@@ -46,8 +46,7 @@ while(opcion != "3"):
         
             # Mostrando la recomendacion
             aux = "|"
-            for i in grafo:
-                aux += " Se recomienda " + i
+            aux += grafo
             
             # Verificando si hay 3 elementos en recomendaciones
             if (len(recomendaciones) == 3):

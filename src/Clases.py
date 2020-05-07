@@ -18,7 +18,7 @@ class Artista:
     # Deuelve la informacion del autor
     # return: string con el nombre, numero de canciones y numero de artistas similares
     def getInfo(self):
-        return self.artist_name, "tiene", len(self.songs), "canciones en la base de datos y", len(self.similar_artists), "artistas similares"
+        return self.artist_name + " tiene " + str(len(self.songs)) + " canciones en la base de datos y " + str(len(self.similar_artists)) + " artistas similares"
             
 class Cancion:
     
@@ -32,4 +32,4 @@ class Cancion:
     # Deuelve la informacion de la cancion
     # return: string con el nombre, numero del album y el genero
     def getInfo(self):    
-        return "la cancion", self.song_name,"pertenece al album",self.album,"del genero",self.song_genre
+        return "la cancion " + self.song_name + " pertenece al album " +self.album+" del genero "+self.song_genre

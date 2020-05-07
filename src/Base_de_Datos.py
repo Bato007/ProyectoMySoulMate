@@ -6,15 +6,18 @@ from GrafoInicial import *
 
 def realizar_base():
     base = [] #array de array
-    final = []
+    final = [] #Es el array de array a retornar
     actual = [] #Llevara los items de cada artista
     
+    #Se abre la base
     with open("Base_de_Datos.txt") as f:
         temporal = f.read()
     f.close()
-    
+
+    #Se separa por linea    
     temp = temporal.split('\n')
     temp2 = []
+    
     for i in range(int(len(temp))): 
         temp2.append(temp[i].split(';')) #Se separa por ;
 
@@ -48,24 +51,25 @@ def realizar_base():
     return final #Se retorna la base
 
 def mostrar_base():
-    final = realizar_base()
+    final = realizar_base() #Se obtiene la base
     
-    info_final = []
+    info_final = [] #Informacion de todos los artistas
     for artista in final: #Por cada artista en la base final
         info_final.append(artista.getInfo()) #Se obtiene su informacion
     
     return info_final #Se retorna
 
 def buscar_artista(nombre_artista):
-    final = realizar_base()
+    final = realizar_base() #Se obtiene la base
     
-    for artista in final:
-        if(artista.artist_name == nombre_artista):
-            return generar_grafo(nombre_artista)
+    for artista in final: #Por cada artista
+        if(artista.artist_name == nombre_artista): #Se revisa que este en la base
+            return generar_grafo(nombre_artista) #Se retorna el grafo
+    return None #Se retorna vacio
     
 
 def buscar_cancion(grafo):
-    final = realizar_base()
+    final = realizar_base() #Se obtiene la base
     
     seguir = True
     contador = 1 #Empezamos del mas alejado al artista acual
@@ -84,5 +88,5 @@ def buscar_cancion(grafo):
         if artista_actual == item.artist_name:
             elegido = random.randint(0, len(item.songs)-1) #Se genera un numero aleatorio entre las canciones posibles
                     
-            return item.songs[elegido].getInfo() #Se obtiene una cancion aleatoria
+            return " Estas escuchando a " + artista_actual + " con " + item.songs[elegido].getInfo() #Se obtiene una cancion aleatoria
             
