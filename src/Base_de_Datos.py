@@ -70,11 +70,14 @@ def buscar_artista(nombre_artista):
 
 def buscar_cancion(grafo):
     final = realizar_base() #Se obtiene la base
-    
     seguir = True
-    contador = 1 #Empezamos del mas alejado al artista acual
+    
+    contador = 2 #Empezamos en el segundo "alejado"
     while(seguir): #Se verifica que este en la base de datos
-        posible = grafo[len(grafo)-contador] #Se usa la lista de posibles artistas (posicion del grafo)
+        if len(grafo)>2:
+            posible = grafo[contador] #Se usa la lista de posibles artistas (posicion del grafo)
+        elif len(grafo)>1:
+            posible = grafo[contador-1] #Se usa la lista de posibles artistas (posicion del grafo)
         
         for artist in final:
             if artist.artist_name == posible:
@@ -82,7 +85,7 @@ def buscar_cancion(grafo):
                 elegido = random.randint(0, len(posible)-1) #Se genera un numero aleatorio entre los artistas posibles
                 artista_actual = posible[elegido] #Se selecciona ese artista
                 seguir = False #Ya no hay necesidad de seguir moviendonos
-        contador+=1
+        contador-=1
                     
     for item in final:
         if artista_actual == item.artist_name:

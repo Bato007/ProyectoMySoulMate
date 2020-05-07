@@ -19,7 +19,7 @@ aux = ""
 # Iniciando Menu
 
 while(opcion != "3"):
-    print("|\tBienvenido a su Recomendador de Canciones")
+    print("|\n\tBienvenido a su Recomendador de Canciones")
     # Mostrando menu
     print("|\n| 1. Obtener Recomendacion")
     print("| 2. Historial de Recomendaciones")
