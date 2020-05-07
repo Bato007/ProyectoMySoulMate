@@ -86,7 +86,6 @@ def generar_grafo(nombre_artista):
     
 
     #Orden DFS del grafo
-    print(list(nx.dfs_preorder_nodes(G,nombre_artista)))
     return (list(nx.dfs_preorder_nodes(G,nombre_artista)))
 
     
