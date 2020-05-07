@@ -32,4 +32,4 @@ class Cancion:
     # Deuelve la informacion de la cancion
     # return: string con el nombre, numero del album y el genero
     def getInfo(self):    
-        return "La cancion", self.song_name,"pertenece al album",self.album,"del genero",self.song_genre
+        return "la cancion", self.song_name,"pertenece al album",self.album,"del genero",self.song_genre

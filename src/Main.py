@@ -31,7 +31,7 @@ while(opcion != "3"):
         
         # Mostrando Base de Datos
         for i in BD.mostrar_base():
-            aux = "| "
+            aux = "|"
             for j in i:
                 aux += " " + str(j)
             print(aux)
@@ -39,18 +39,26 @@ while(opcion != "3"):
         
         # Consiguiendo al cuate
         grafo = BD.buscar_artista(nombre_artista)
-        grafo = BD.buscar_cancion(grafo)
         
-        # Mostrando la recomendacion
-        aux = "| "
-        for i in grafo:
-            aux += " " + i
+        # Verificando que este el artista
+        if (grafo != None):
+            grafo = BD.buscar_cancion(grafo)
         
-        # Verificando si hay 3 elementos en recomendaciones
-        if (len(recomendaciones) == 3):
-            recomendaciones.pop()
+            # Mostrando la recomendacion
+            aux = "|"
+            for i in grafo:
+                aux += " Se recomienda " + i
+            
+            # Verificando si hay 3 elementos en recomendaciones
+            if (len(recomendaciones) == 3):
+                recomendaciones.pop()
+            
+            recomendaciones.append(aux)
         
-        recomendaciones.append(aux)
+        # Si no esta el artista
+        else:
+            aux = "| El artista ingresado no se encuentra en la lista"
+            
         print(aux)
         
     # Mostrar recomendaciones pasadas
