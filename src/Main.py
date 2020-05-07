@@ -19,7 +19,7 @@ aux = ""
 # Iniciando Menu
 
 while(opcion != "3"):
-    print("|\n\tBienvenido a su Recomendador de Canciones")
+    print("|\n|\tBienvenido a su Recomendador de Canciones")
     # Mostrando menu
     print("|\n| 1. Obtener Recomendacion")
     print("| 2. Historial de Recomendaciones")
@@ -35,6 +35,8 @@ while(opcion != "3"):
             for j in i:
                 aux += j
             print(aux)
+            
+        print("| Como se muestra en la base de datos por favor")
         nombre_artista = input("| Ingrese su artista favorito para recomendarle una cancion: ")
         
         # Consiguiendo al cuate
@@ -63,6 +65,7 @@ while(opcion != "3"):
     # Mostrar recomendaciones pasadas
     elif(opcion == "2"):
         
+        print("|\n| Se han recomendado las siguientes canciones:")
         if (len(recomendaciones) > 0):
             for i in recomendaciones:
                 print("%s" %i)
