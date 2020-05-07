@@ -88,8 +88,9 @@ def buscar_cancion(grafo):
         contador-=1
                     
     for item in final:
+        print(item.artist_name == artista_actual)
         if artista_actual == item.artist_name:
             elegido = random.randint(0, len(item.songs)-1) #Se genera un numero aleatorio entre las canciones posibles
                     
             return " Estas escuchando a " + artista_actual + " con " + item.songs[elegido].getInfo() #Se obtiene una cancion aleatoria
-            
+    return "No se encuentra " + artista_actual
