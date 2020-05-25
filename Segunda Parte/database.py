@@ -74,10 +74,40 @@ def doing_genre_rec(genre, genre_recommendations):
             genre_recommendations.append(result[1]) #La posicion 1 contiene el nombre del artista
             
     return genre_recommendations #Se regresa la lista actualizada
+
+#Params-> año a buscar
+#Return-> cancion aleatoria
+def song_recommendation_year(year):
+    year_recommendations = []
     
+    #Se recomiendan de un año antes, el año elegido y un año después
+    year_recommendations = doing_year_rec(str(int(year)-1), year_recommendations)
+    year_recommendations = doing_year_rec(year, year_recommendations)
+    year_recommendations = doing_year_rec(str(int(year)+1), year_recommendations)
+    
+    #Generando cancion aleatoria
+    random_song = random.randrange(len(year_recommendations))
+    
+    return year_recommendations[random_song]
+
+#Params-> año, lista de artistas generados por año
+#Return-> lista de artistas generados por año
+def doing_year_rec(year, year_recommendations):
+    #Buscando en la base por año 
+    q1 = "MATCH (artista:Artista) -[:PERFORMS]-(cancion:Cancion)-[:RELEASED]-(Year{year:'%s'}) return cancion.nombre, artista.nombre" %year
+    nodes = session.run(q1)
+    nodes = list(nodes)
+    
+    for node in nodes:
+        if node not in year_recommendations: #Se revisa que no este repetido
+            result = re.split("[']",str(node)) #Se separa por apostrofe
+            year_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 2 el nombre de la cancion 
+            
+    return year_recommendations #Se regresa la lista actualizada
 
 aux = get_node_name('Artista')
 aux2 = get_node_name('Cancion')
 search_node('Lorde')
 
-print(song_recommendation_genre('Dance pop', 'Pop', 'Electro Pop'))
+print(song_recommendation_genre('Dance pop', 'Pop', 'Electro Pop')) #Buscando por generos similares
+print(song_recommendation_year('2010')) #Buscando por año similar
