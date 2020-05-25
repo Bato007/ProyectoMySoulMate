@@ -61,7 +61,7 @@ def song_recommendation_genre(genre1, genre2, genre3):
         result = re.split('["]',str(nodes[random_song])) #Se separa por comillas
         song_result = result[1] #La posicion 1 contiene el nombre de la cancion 
     else:
-        song_result = song_result[1]
+        song_result = song_result[1] #La posicion 1 contiene el nombre de la cancion 
           
     
     
@@ -113,7 +113,7 @@ def doing_year_rec(year, year_recommendations):
             if(len(result)!=5): #Significa que la cancion tiene apostrofe
                 artist = result[2] #Entonces, el artista es posicion 2
                 result = re.split('["]',str(node)) #Se separa por comillas
-                year_recommendations.append(artist+ " - " + result[1]) #La posicion 1 contiene el nombre de la cancion 
+                year_recommendations.append(result[1]+ " - " + artist) #La posicion 1 contiene el nombre de la cancion 
             else:
                 year_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 3 el nombre de la cancion 
             
@@ -136,25 +136,37 @@ def song_recommendation_century():
 #Return-> lista de artistas generados por siglo
 def doing_century_rec(century_recommendations):
     #Buscando en la base por cancion del año
-    q1 = "MATCH (year:Year)-[:SOTY]-(cancion:Cancion)-[:PERFORMS]-(artist:Artista) return artist.nombre, cancion.nombre"
+    q1 = "MATCH (year:Year)-[:SOTY]-(cancion:Cancion)-[:PERFORMS]-(artist:Artista) return cancion.nombre, artist.nombre"
     nodes = session.run(q1)
     nodes = list(nodes)
     
     for node in nodes:
         if node not in century_recommendations: #Se revisa que no este repetido
             result = re.split("[']",str(node)) #Se separa por apostrofe
-            century_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 2 el nombre de la cancion 
-    
+            
+            if(len(result)!=5): #Significa que la cancion tiene apostrofe
+                artist = result[2] #Entonces, el artista es posicion 2
+                result = re.split('["]',str(node)) #Se separa por comillas
+                century_recommendations.append(result[1]+" - " + artist) #La posicion 1 contiene el nombre de la cancion 
+            else:
+                century_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 3 el nombre de la cancion 
+            
     #Buscando en la base por artista del año
-    q1 = "MATCH (year:Year)-[:AOTY]-(artist:Artista)-[:PERFORMS]-(cancion:Cancion) return artist.nombre, cancion.nombre"
+    q1 = "MATCH (year:Year)-[:AOTY]-(artist:Artista)-[:PERFORMS]-(cancion:Cancion) return cancion.nombre, artist.nombre"
     nodes = session.run(q1)
     nodes = list(nodes)
     
     for node in nodes:
         if node not in century_recommendations: #Se revisa que no este repetido
             result = re.split("[']",str(node)) #Se separa por apostrofe
-            century_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 2 el nombre de la cancion 
-    
+            
+            if(len(result)!=5): #Significa que la cancion tiene apostrofe
+                artist = result[2] #Entonces, el artista es posicion 2
+                result = re.split('["]',str(node)) #Se separa por comillas
+                century_recommendations.append(result[1]+" - " + artist) #La posicion 1 contiene el nombre de la cancion 
+            else:
+                century_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 3 el nombre de la cancion 
+            
     return century_recommendations #Se regresa la lista actualizada
 
 aux = get_node_name('Artista')
