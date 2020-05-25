@@ -47,7 +47,7 @@ def song_recommendation_genre(genre1, genre2, genre3):
     
     random_artist = random.randrange(len(genre_recommendations)) #Generando artista al azar
     artist = genre_recommendations[random_artist] #Eligiendo artista
-    
+
     #Buscando artista en la base
     q1 = "MATCH (Artista{nombre:'%s'}) - [:PERFORMS] - (Cancion) Return Cancion.nombre" %artist
     nodes = session.run(q1)
@@ -56,9 +56,17 @@ def song_recommendation_genre(genre1, genre2, genre3):
     #Generando cancion aleatoria del artista
     random_song = random.randrange(len(nodes))
     song_result = re.split("[']",str(nodes[random_song])) #Se separa por apostrofe
+
+    if(len(song_result)!=3): #Significa que la cancion tiene apostrofe
+        result = re.split('["]',str(nodes[random_song])) #Se separa por comillas
+        song_result = result[1] #La posicion 1 contiene el nombre de la cancion 
+    else:
+        song_result = song_result[1]
+          
+    
     
     #Retornando cancion - artista
-    return song_result[1] + " - " + artist
+    return song_result + " - " + artist
 
 #Params-> genero, lista de artistas generados por genero
 #Return-> lista de artistas generados por genero
@@ -101,9 +109,53 @@ def doing_year_rec(year, year_recommendations):
     for node in nodes:
         if node not in year_recommendations: #Se revisa que no este repetido
             result = re.split("[']",str(node)) #Se separa por apostrofe
-            year_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 2 el nombre de la cancion 
             
+            if(len(result)!=5): #Significa que la cancion tiene apostrofe
+                artist = result[2] #Entonces, el artista es posicion 2
+                result = re.split('["]',str(node)) #Se separa por comillas
+                year_recommendations.append(artist+ " - " + result[1]) #La posicion 1 contiene el nombre de la cancion 
+            else:
+                year_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 3 el nombre de la cancion 
+            
+            
+          
     return year_recommendations #Se regresa la lista actualizada
+
+#Params-> ninguno
+#Return-> cancion aleatoria del siglo
+def song_recommendation_century():
+    century_recommendations = []
+    century_recommendations = doing_century_rec(century_recommendations)
+    
+    #Generando cancion aleatoria
+    random_song = random.randrange(len(century_recommendations))
+    
+    return century_recommendations[random_song]
+
+#Params-> lista de artistas generados por siglo
+#Return-> lista de artistas generados por siglo
+def doing_century_rec(century_recommendations):
+    #Buscando en la base por cancion del año
+    q1 = "MATCH (year:Year)-[:SOTY]-(cancion:Cancion)-[:PERFORMS]-(artist:Artista) return artist.nombre, cancion.nombre"
+    nodes = session.run(q1)
+    nodes = list(nodes)
+    
+    for node in nodes:
+        if node not in century_recommendations: #Se revisa que no este repetido
+            result = re.split("[']",str(node)) #Se separa por apostrofe
+            century_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 2 el nombre de la cancion 
+    
+    #Buscando en la base por artista del año
+    q1 = "MATCH (year:Year)-[:AOTY]-(artist:Artista)-[:PERFORMS]-(cancion:Cancion) return artist.nombre, cancion.nombre"
+    nodes = session.run(q1)
+    nodes = list(nodes)
+    
+    for node in nodes:
+        if node not in century_recommendations: #Se revisa que no este repetido
+            result = re.split("[']",str(node)) #Se separa por apostrofe
+            century_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 2 el nombre de la cancion 
+    
+    return century_recommendations #Se regresa la lista actualizada
 
 aux = get_node_name('Artista')
 aux2 = get_node_name('Cancion')
@@ -111,3 +163,4 @@ search_node('Lorde')
 
 print(song_recommendation_genre('Dance pop', 'Pop', 'Electro Pop')) #Buscando por generos similares
 print(song_recommendation_year('2010')) #Buscando por año similar
+print(song_recommendation_century()) #Buscando por lo mejor del 2000 B)
