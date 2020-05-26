@@ -11,7 +11,7 @@ import random
 # Fecha: 24/05/2020
 # Nombre: database.py
 
-# Se abre la secion de Neo4j
+# Se abre la sesion de Neo4j
 db = GraphDatabase.driver("bolt://localhost:7687",
                           auth =("neo4j","1234"), encrypted = False)
 session = db.session()
@@ -31,20 +31,26 @@ def get_node_name(node_type):
     for node in nodes:
         temp.append(dict(dict(node)['x'])['name'])
     return temp
-    
+
+# Busca el nodo que quiere el usuario 
+# pre: La base de datos debe de tener al menos un dato,
+#      debe de ser una 'Cancion' o un 'Artista'
+# Param: El nombre del artista/cancion
+# Return: True si se encontro al artista, False si no se encontro
 def search_node(searched_node):
-    q1 = "MATCH (Artista{nombre:'%s'}) RETURN Artista" %searched_node
+    q1 = "MATCH (Artista{nombre:'%s'}) RETURN Artista.nombre" %searched_node
     node = session.run(q1)
     print(node) # En proceso
     return False
 
-search_node('Adel')
+search_node('Adele')
 
 # Borra el nodo que el usuario quiere
 # pre: La base de datos debe de tener al menos un dato,
 #      debe de ser una 'Cancion' o un 'Artista'
 #      Se debe de verificar que el artista a eliminar este en
 #      la base de datos
+# pos: hay n - 1 en la base de datos
 # Param: El nombre del artista/cancion
 # Return: True si se pudo borrar el artista o False si no se pudo
 def delete_node(delete_node):
@@ -69,7 +75,7 @@ def delete_node(delete_node):
     # Verificando que no este entre los que no se pueden borrar
     if ((delete_node in soty) or (delete_node in aoty)):
         return False
-    else:
+    else: # Al no estar en las listas, procede a borrar
         q = "MATCH (x {nombre:'%s'}) DETACH DELETE x" %delete_node
         nodes = session.run(q)
         return True
