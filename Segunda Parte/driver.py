@@ -2,7 +2,7 @@
 # Martin Amado 19020
 # Andrea Amaya 19357
 # Brandon Hernández 19376
-# 
+# Laura Tamath 19365
 # Fecha: 24/05/2020
 # Nombre: driver.py
 
@@ -32,14 +32,14 @@ while ejecucion:
     
     #Buscar por artista similar
     if opcion == 1:
-         print('v')
+         print('v') #Solo es mientras tanto
 
     #Buscar por artista similar
     if opcion == 2:
-         print('f')
+         print('f')#Solo es mientras tanto
     #Buscar lo mejor de ambas decadas
     if opcion == 3:
-         print('g')
+         print('g')#Solo es mientras tanto
     #Salir
     if opcion == 4:
         print('Gracias por utilizar este sistema de recomendación')
