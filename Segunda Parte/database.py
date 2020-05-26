@@ -29,7 +29,7 @@ def get_node_name(node_type):
  
     # Metiendo los nombres al 
     for node in nodes:
-        temp.append(dict(dict(node)['x'])['name'])
+        temp.append(dict(dict(node)['x'])['nombre'])
     return temp
 
 # Busca el nodo que quiere el usuario 
@@ -38,12 +38,27 @@ def get_node_name(node_type):
 # Param: El nombre del artista/cancion
 # Return: True si se encontro al artista, False si no se encontro
 def search_node(searched_node):
-    q1 = "MATCH (Artista{nombre:'%s'}) RETURN Artista.nombre" %searched_node
-    node = session.run(q1)
-    print(node) # En proceso
-    return False
-
-search_node('Adele')
+    temp = [] # Guarda los nombres de los artistas
+    q1 = "MATCH (x:Artista) RETURN x" 
+    nodes = session.run(q1)
+    nodes = list(nodes)
+ 
+    # Metiendo los nombres al 
+    for node in nodes:
+        temp.append(dict(dict(node)['x'])['nombre'])
+        
+    q1 = "MATCH (x:Cancion) RETURN x" 
+    nodes = session.run(q1)
+    nodes = list(nodes)
+ 
+    # Metiendo los nombres al 
+    for node in nodes:
+        temp.append(dict(dict(node)['x'])['nombre'])
+        
+    if (searched_node in temp):
+        return True
+    else:
+        return False
 
 # Borra el nodo que el usuario quiere
 # pre: La base de datos debe de tener al menos un dato,
@@ -213,7 +228,7 @@ def doing_century_rec(century_recommendations):
     return century_recommendations #Se regresa la lista actualizada
 
 #PARA EL MAIN
-print(get_node_name('Genero')) #Muestra los generos posibles
+print(get_node_name('Artista')) #Muestra los generos posibles
 print(song_recommendation_genre('Dance pop', 'Pop', 'Electro Pop')) #Buscando por generos similares
 print(song_recommendation_year('2010')) #Buscando por año similar
 print(song_recommendation_century()) #Buscando por lo mejor del 2000 B)
