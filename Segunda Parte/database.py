@@ -33,10 +33,47 @@ def get_node_name(node_type):
     return temp
     
 def search_node(searched_node):
-    q1 = "MATCH (x {nombre:'%s'}) RETURN x" %searched_node
+    q1 = "MATCH (Artista{nombre:'%s'}) RETURN Artista" %searched_node
     node = session.run(q1)
     print(node) # En proceso
-   
+    return False
+
+search_node('Adel')
+
+# Borra el nodo que el usuario quiere
+# pre: La base de datos debe de tener al menos un dato,
+#      debe de ser una 'Cancion' o un 'Artista'
+#      Se debe de verificar que el artista a eliminar este en
+#      la base de datos
+# Param: El nombre del artista/cancion
+# Return: True si se pudo borrar el artista o False si no se pudo
+def delete_node(delete_node):
+    aux = []
+    soty = []
+    aoty = []
+    
+    # Consiguiendo las cancinoes que no se pueden borrar
+    q = "MATCH (x)-[:SOTY]->(y) RETURN y.nombre"
+    nodes = session.run(q)
+    aux = list(nodes)
+    for node in aux:
+        soty.append(dict(node)['y.nombre'])
+    
+    # Consiguiendo los artistas que no se pueden borrar
+    q = "MATCH (x)-[r:AOTY]->(y) RETURN y.nombre"
+    nodes = session.run(q)
+    aux = list(nodes)
+    for node in aux:
+        aoty.append(dict(node)['y.nombre'])
+    
+    # Verificando que no este entre los que no se pueden borrar
+    if ((delete_node in soty) or (delete_node in aoty)):
+        return False
+    else:
+        q = "MATCH (x {nombre:'%s'}) DETACH DELETE x" %delete_node
+        nodes = session.run(q)
+        return True
+
 #Params-> generos que le gustan
 #Return-> cancion aleatoria
 def song_recommendation_genre(genre1, genre2, genre3):
