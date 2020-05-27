@@ -45,16 +45,16 @@ while ejecucion:
             print("Se le mostrará los géneros existentes")
             print(get_node_name('Genero'))
             genero1 = input("Ingrese su primer género favortio: ")
-            a = genero1.capitalize()
+            a = genero1.title()
             genero2 = input("Ingrese su primer género favortio: ")
-            b = genero2.capitalize()
+            b = genero2.title()
             genero3 = input("Ingrese su primer género favortio: ")
-            c = genero3.capitalize()
+            c = genero3.title()
             
-            print('Por su inclinación a estos géneros, se recomienda:')
-            print(song_recommendation_genre(a, b, c))
-            print ('\n')
-            validador1 = False    
+            if (search_node(a) and search_node(b) and search_node(c)):
+                
+                print('Por su inclinación a estos géneros, se recomienda: %s\n' %song_recommendation_genre(a, b, c))
+                validador1 = False    
             
         
 

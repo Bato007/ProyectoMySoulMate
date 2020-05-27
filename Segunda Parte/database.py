@@ -55,6 +55,22 @@ def search_node(searched_node):
     for node in nodes:
         temp.append(dict(dict(node)['x'])['nombre'])
         
+    q1 = "MATCH (x:Genero) RETURN x" 
+    nodes = session.run(q1)
+    nodes = list(nodes)
+ 
+    # Metiendo los nombres al 
+    for node in nodes:
+        temp.append(dict(dict(node)['x'])['name'])
+        
+    q1 = "MATCH (x:Year) RETURN x" 
+    nodes = session.run(q1)
+    nodes = list(nodes)
+ 
+    # Metiendo los nombres al 
+    for node in nodes:
+        temp.append(dict(dict(node)['x'])['year'])
+        
     if (searched_node in temp):
         return True
     else:
