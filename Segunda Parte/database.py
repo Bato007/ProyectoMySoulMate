@@ -228,7 +228,7 @@ def doing_century_rec(century_recommendations):
     return century_recommendations #Se regresa la lista actualizada
 
 #PARA EL MAIN
-print(get_node_name('Genero')) #Muestra los generos posibles
-print(song_recommendation_genre('Dance pop', 'Pop', 'Electro Pop')) #Buscando por generos similares
-print(song_recommendation_year('2010')) #Buscando por año similar
-print(song_recommendation_century()) #Buscando por lo mejor del 2000 B)
+#print(get_node_name('Genero')) #Muestra los generos posibles
+#print(song_recommendation_genre('Dance pop', 'Pop', 'Electro Pop')) #Buscando por generos similares
+#print(song_recommendation_year('2010')) #Buscando por año similar
+#print(song_recommendation_century()) #Buscando por lo mejor del 2000 B)

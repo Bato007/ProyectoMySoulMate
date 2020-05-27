@@ -1,6 +1,6 @@
 from neo4j import GraphDatabase
 
-db = GraphDatabase.driver("bolt://localhost:7687", auth = ("neo4j", "12345"), encrypted = False)
+db = GraphDatabase.driver("bolt://localhost:7687", auth = ("neo4j", "1234"), encrypted = False)
 
 session = db.session()
 
