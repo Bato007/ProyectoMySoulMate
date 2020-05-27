@@ -4,11 +4,12 @@
 # Brandon Hernández 19376
 # Laura Tamath 19365
 # Fecha: 24/05/2020
+# última modificación: 27/05/2020
 # Nombre: driver.py
 
 #Importando las funciones de la base de datos
 from database import *
-from DB import *
+import DB
 
 #Para los try
 opcionn = True
@@ -19,10 +20,11 @@ agrega1V = True
 agrega2V = True
 agrega3V = True
 yearV = True
+delV = True
 
 while ejecucion:
     if validador:
-        print ('-----------Bienvenido al sistemas de recomendación de música-----------')
+        print ('\n-----------Bienvenido al sistemas de recomendación de música-----------')
         print ('\t1.Buscar por géneros similares \n\t2.Buscar por año similar\n\t3.Buscar lo mejor de ambas décadas')
         print ('\t4.Agregar información\n\t5.Borrar información\n\t6.Salir')
 
@@ -44,11 +46,11 @@ while ejecucion:
         while validador1:
             print("Se le mostrará los géneros existentes")
             print(get_node_name('Genero'))
-            genero1 = input("Ingrese su primer género favortio: ")
+            genero1 = input("Ingrese su primer género favorito: ")
             a = genero1.title()
-            genero2 = input("Ingrese su primer género favortio: ")
+            genero2 = input("Ingrese su segundo género favorito: ")
             b = genero2.title()
-            genero3 = input("Ingrese su primer género favortio: ")
+            genero3 = input("Ingrese su tercer género favorito: ")
             c = genero3.title()
             
             if (search_node(a) and search_node(b) and search_node(c)):
@@ -61,11 +63,11 @@ while ejecucion:
     #Buscar por año similar, pregunta el año
     if opcion == 2:
         while yearV:
-            yearP = input ('¿Música de qué año prefieres escuchar? (2000-2020): ')
+            yearP = input ('¿De qué año prefieres escuchar música? (2000-2020): ')
             try:
                 yearSP = int(yearP)
                 if(2000 <= yearSP <= 2020):   
-                    print(song_recommendation_year(yearP))
+                    print('Se recomienda: ',song_recommendation_year(yearP))
                     yearV = False
                 else:
                     print('El año ingresado no está dentro del rango, intentélo de nuevo.')
@@ -76,14 +78,10 @@ while ejecucion:
          
     #Buscar lo mejor de ambas decadas, no sé que preguntarle gg
     if opcion == 3:
-        print('f')#Solo es mientras tanto
-         #print(song_recommendation_century()) #Buscando por lo mejor del 2000 B)
+        print('Lo mejor de este siglo fue: ',song_recommendation_century())
         
     #Agregar
     if opcion ==4:
-        q1 = "MATCH (x) return (x)"
-        nodes = session.run(q1)
-        nodes = list(nodes)
         arti = input('Ingrese el nombre del Artista que desea agregar: ')
         ar = arti.capitalize()
         can1 = input('Ingrese una canción de este/a: ')
@@ -129,15 +127,22 @@ while ejecucion:
             except ValueError:
                 print('Asegurese de ingresar enteros')
        
-        print(ar, ca1, ca2, ca3, ge1, ge2, ge3, year1, year2, year3)
 
         DB.agregarDatos(ar, ca1, ca2, ca3, ge1, ge2, ge3, yearr1, yearr2, yearr3)
-        for node in nodes:
-            print(node)
+        print('Se agregó con éxito.')
     
     #Borrar
     if opcion ==5:
-        print('f')#Solo es mientras tanto
+        while delV:
+            arti = input('Ingrese el nombre del Artista que desea eliminar: ')
+            ar = arti.capitalize()
+            if (search_node(ar)):
+                delete_node(ar)
+                print('Se ha eliminado con éxito')
+                delV = False
+            else: 
+                print('No se puede eliminar, pues este no existe')
+        
          
     #Salir
     if opcion == 6:
