@@ -86,25 +86,40 @@ def search_node(searched_node):
 # Return: True si se pudo borrar el artista o False si no se pudo
 def delete_node(delete_node):
     aux = []
-    soty = []
-    aoty = []
+    temp = []
     
     # Consiguiendo las cancinoes que no se pueden borrar
     q = "MATCH (x)-[:SOTY]->(y) RETURN y.nombre"
     nodes = session.run(q)
     aux = list(nodes)
     for node in aux:
-        soty.append(dict(node)['y.nombre'])
+        temp.append(dict(node)['y.nombre'])
     
     # Consiguiendo los artistas que no se pueden borrar
     q = "MATCH (x)-[r:AOTY]->(y) RETURN y.nombre"
     nodes = session.run(q)
     aux = list(nodes)
     for node in aux:
-        aoty.append(dict(node)['y.nombre'])
+        temp.append(dict(node)['y.nombre'])
+    
+    q1 = "MATCH (x:Genero) RETURN x" 
+    nodes = session.run(q1)
+    nodes = list(nodes)
+ 
+    # Metiendo los nombres al 
+    for node in nodes:
+        temp.append(dict(dict(node)['x'])['name'])
+        
+    q1 = "MATCH (x:Year) RETURN x" 
+    nodes = session.run(q1)
+    nodes = list(nodes)
+ 
+    # Metiendo los nombres al 
+    for node in nodes:
+        temp.append(dict(dict(node)['x'])['year'])
     
     # Verificando que no este entre los que no se pueden borrar
-    if ((delete_node in soty) or (delete_node in aoty)):
+    if (delete_node in temp):
         return False
     else: # Al no estar en las listas, procede a borrar
         q = "MATCH (x {nombre:'%s'}) DETACH DELETE x" %delete_node

@@ -11,6 +11,8 @@
 from database import *
 import DB
 
+
+recomendaciones = []
 #Para los try
 opcionn = True
 ejecucion = True
@@ -23,25 +25,17 @@ yearV = True
 delV = True
 
 while ejecucion:
-    if validador:
-        print ('\n-----------Bienvenido al sistemas de recomendación de música-----------')
-        print ('\t1.Buscar por géneros similares \n\t2.Buscar por año similar\n\t3.Buscar lo mejor de ambas décadas')
-        print ('\t4.Agregar información\n\t5.Borrar información\n\t6.Salir')
-
-        while opcionn:
-            opcion = input('\tIngrese la opción a ejecutar: ')
-            print ('\n')
-            try:
-                opcion = int(opcion)
-                opcionn = False
-
-            except ValueError:
-                print('Opcion inválida!')
-                
-    opcionn = True
+    
+    print ('\n-----------Bienvenido al sistemas de recomendación de música-----------')
+    print ('\t1. Buscar por géneros similares \n\t2. Buscar por año similar\n\t3. Buscar lo mejor de ambas décadas')
+    print ('\t4. Agregar información\n\t5.Borrar información\n\t6. Ver ultimas recomendaciones\n\t7. Salir')
+    opcion = input('\tIngrese la opción a ejecutar: ')
+    
+    if len(recomendaciones) > 3:
+        recomendaciones.pop()
     
     #Buscar por género similar, pregunta 3 géneros
-    if opcion == 1:
+    if opcion == '1':
         validador1 = True
         while validador1:
             print("Se le mostrará los géneros existentes")
@@ -54,40 +48,41 @@ while ejecucion:
             c = genero3.title()
             
             if (search_node(a) and search_node(b) and search_node(c)):
-                
-                print('Por su inclinación a estos géneros, se recomienda: %s\n' %song_recommendation_genre(a, b, c))
-                validador1 = False    
-            
-        
+                aux = song_recommendation_genre(a, b, c)
+                print('Por su inclinación a estos géneros, se recomienda: %s\n' %aux)
+                recomendaciones.append(aux)
+                validador1 = False           
 
     #Buscar por año similar, pregunta el año
-    if opcion == 2:
+    elif opcion == '2':
         while yearV:
             yearP = input ('¿De qué año prefieres escuchar música? (2000-2020): ')
             try:
                 yearSP = int(yearP)
-                if(2000 <= yearSP <= 2020):   
-                    print('Se recomienda: ',song_recommendation_year(yearP))
+                if(2000 <= yearSP <= 2020):
+                    aux = song_recommendation_year(yearP)
+                    print('Se recomienda: ', aux)
+                    recomendaciones.append(aux)
                     yearV = False
                 else:
                     print('El año ingresado no está dentro del rango, intentélo de nuevo.')
             except ValueError:
                 print('Asegúrese de ingresar enteros')
-                
-           
-         
+                    
     #Buscar lo mejor de ambas decadas, no sé que preguntarle gg
-    if opcion == 3:
-        print('Lo mejor de este siglo fue: ',song_recommendation_century())
+    elif opcion == '3':
+        aux = song_recommendation_century()
+        print('Lo mejor de este siglo fue: ', aux)
+        recomendaciones.append(aux)
         
     #Agregar
-    if opcion ==4:
+    elif opcion == '4':
         arti = input('Ingrese el nombre del Artista que desea agregar: ')
-        ar = arti.capitalize()
+        ar = arti.title()
         can1 = input('Ingrese una canción de este/a: ')
         ca1 = can1.capitalize()
         gen1 = input ("Ingrese el género de esta: ")
-        ge1 = gen1.capitalize()
+        ge1 = gen1.title()
         while agrega1V :
             year1 = input ('¿En qué año fue lanzada? ')
             try:
@@ -101,7 +96,7 @@ while ejecucion:
         can2 = input('Ingrese otra canción de este/a: ')
         ca2 = can2.capitalize()
         gen2 = input ("Ingrese el género de esta: ")
-        ge2 = gen2.capitalize()
+        ge2 = gen2.title()
         while agrega2V:
             year2 = input ('¿En qué año fue lanzada? ')
             try:
@@ -115,7 +110,7 @@ while ejecucion:
         can3 = input('Ingrese otra canción de este/a: ')
         ca3 = can3.capitalize()
         gen3 = input ("Ingrese el género de esta: ")
-        ge3 = gen3.capitalize()
+        ge3 = gen3.title()
         while agrega3V:
             year3 = input ('¿En qué año fue lanzada? ')
             try:
@@ -132,9 +127,9 @@ while ejecucion:
         print('Se agregó con éxito.')
     
     #Borrar
-    if opcion ==5:
+    elif opcion == '5':
         while delV:
-            arti = input('Ingrese el nombre del Artista que desea eliminar: ')
+            arti = input('Ingrese el nombre del Artista/Cancion que desea eliminar: ')
             ar = arti.capitalize()
             if (search_node(ar)):
                 delete_node(ar)
@@ -142,9 +137,17 @@ while ejecucion:
                 delV = False
             else: 
                 print('No se puede eliminar, pues este no existe')
+    
+    # Recomendaciones
+    elif opcion == '6':
+        print('\nLas ultimas recomendaciones fueron:')
+        for i in recomendaciones:
+            print(i)
         
-         
     #Salir
-    if opcion == 6:
+    elif opcion == '7':
         print('Gracias por utilizar este sistema de recomendación')
         ejecucion = False
+    
+    else:
+        print('Ingrese una opcion valida')
