@@ -8,9 +8,21 @@ def agregarDatos(nombre_artista, cancion_1, cancion_2, cancion_3, genero_1, gene
     
     #Se reemplazan espacios con guiones bajos
     nombre2 = nombre_artista.replace(" ", "_")
+    for character in nombre2:
+        if character.isdigit():
+            nombre2 = nombre2.replace(character, "")
     cancion1 = cancion_1.replace(" ", "_")
+    for character in cancion1:
+        if character.isdigit():
+            cancion1 = cancion1.replace(character, "")
     cancion2 = cancion_2.replace(" ", "_")
+    for character in cancion2:
+        if character.isdigit():
+            cancion2 = cancion2.replace(character, "")
     cancion3 = cancion_3.replace(" ", "_")
+    for character in cancion3:
+        if character.isdigit():
+            cancion3 = cancion3.replace(character, "")
     genero1 = genero_1.replace(" ", "_")
     genero2 = genero_2.replace(" ", "_")
     genero3 = genero_3.replace(" ", "_")
