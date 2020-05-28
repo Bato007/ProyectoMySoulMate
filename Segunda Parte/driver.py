@@ -11,7 +11,6 @@
 from database import *
 import DB
 
-
 recomendaciones = []
 #Para los try
 opcionn = True
@@ -28,18 +27,20 @@ while ejecucion:
     
     print ('\n-----------Bienvenido al sistemas de recomendación de música-----------')
     print ('\t1. Buscar por géneros similares \n\t2. Buscar por año similar\n\t3. Buscar lo mejor de ambas décadas')
-    print ('\t4. Agregar información\n\t5. Borrar información\n\t6. Ver ultimas recomendaciones\n\t7. Salir')
+    print ('\t4. Agregar información\n\t5. Borrar información\n\t6. Ver ultimas recomendaciones\n\t7. Ver Base de Datos\n\t8. Salir')
     opcion = input('\tIngrese la opción a ejecutar: ')
     
     if len(recomendaciones) > 3:
-        recomendaciones.pop()
+        recomendaciones.pop(0)
     
     #Buscar por género similar, pregunta 3 géneros
     if opcion == '1':
         validador1 = True
         while validador1:
             print("Se le mostrará los géneros existentes")
-            print(get_node_name('Genero'))
+            aux_gen = get_node_name('Genero')
+            for i in aux_gen:
+                print(" %s" %i)            
             genero1 = input("Ingrese su primer género favorito: ")
             a = genero1.title()
             genero2 = input("Ingrese su segundo género favorito: ")
@@ -55,6 +56,7 @@ while ejecucion:
 
     #Buscar por año similar, pregunta el año
     elif opcion == '2':
+        yearV = True
         while yearV:
             yearP = input ('¿De qué año prefieres escuchar música? (2000-2020): ')
             try:
@@ -83,6 +85,7 @@ while ejecucion:
         ca1 = can1.capitalize()
         gen1 = input ("Ingrese el género de esta: ")
         ge1 = gen1.title()
+        agrega1V = True
         while agrega1V :
             year1 = input ('¿En qué año fue lanzada? ')
             try:
@@ -97,6 +100,7 @@ while ejecucion:
         ca2 = can2.capitalize()
         gen2 = input ("Ingrese el género de esta: ")
         ge2 = gen2.title()
+        agrega2V = True
         while agrega2V:
             year2 = input ('¿En qué año fue lanzada? ')
             try:
@@ -111,6 +115,7 @@ while ejecucion:
         ca3 = can3.capitalize()
         gen3 = input ("Ingrese el género de esta: ")
         ge3 = gen3.title()
+        agrega3V = True
         while agrega3V:
             year3 = input ('¿En qué año fue lanzada? ')
             try:
@@ -126,30 +131,41 @@ while ejecucion:
         DB.agregarDatos(ar, ca1, ca2, ca3, ge1, ge2, ge3, yearr1, yearr2, yearr3)
         print('Se agregó con éxito.')
     
-    #Borrar
+    #Borrar un dato de la base de datos
     elif opcion == '5':
-        delV = True
-        while delV:
-            arti = input('Ingrese el nombre del Artista/Cancion que desea eliminar: ')
-            ar = arti.title()
-            if (search_node(ar)):
-                flag = delete_node(ar)
-                if flag == True:
-                    print('Se ha eliminado con éxito')
-                else:
-                    print('El artista no se puede eliminar de la base de datos')
-                delV = False
-            else: 
-                print('No se puede eliminar, pues este no existe')
+        arti = input('Ingrese el nombre del Artista/Cancion que desea eliminar: ')
+        ar = arti.title()
+        if (search_node(ar)):
+            flag = delete_node(ar)
+            if flag == True:
+                print('Se ha eliminado con éxito')
+            else:
+                print('El artista no se puede eliminar de la base de datos')
+            
+        else: 
+            print('No se puede eliminar, pues este no existe')
     
     # Recomendaciones
     elif opcion == '6':
         print('\nLas ultimas recomendaciones fueron:')
         for i in recomendaciones:
             print(i)
-        
-    #Salir
+    
+    # Mostrar Base de datos
     elif opcion == '7':
+        print("En la base de datos se cuenta con los siguietnes artistas:")
+        temp = get_node_name('Artista')
+        for i in temp:
+            print(" %s" %i)
+        
+        print("\nY con las siguientes canciones:")
+        temp = get_node_name('Cancion')
+        for i in temp:
+            print(" %s" %i)
+        
+    
+    #Salir
+    elif opcion == '8':
         print('Gracias por utilizar este sistema de recomendación')
         ejecucion = False
     

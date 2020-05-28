@@ -16,9 +16,10 @@ db = GraphDatabase.driver("bolt://localhost:7687",
                           auth =("neo4j","1234"), encrypted = False)
 session = db.session()
 
-# Obtiene los nombres de todos los artistas
+
+# Obtiene los nombres de todos los Generos
 # pre: La base de datos debe de tener al menos un dato,
-#      debe de ser una 'Cancion' o un 'Artista'
+#      debe de ser un 'Genero', 'Artista' o 'Cancion
 # Param: El nombre del label del nodo
 # Return: Una lista con todos los nombres de artistas que hay en la base de datos
 def get_node_name(node_type):
@@ -28,8 +29,12 @@ def get_node_name(node_type):
     nodes = list(nodes)
  
     # Metiendo los nombres al 
-    for node in nodes:
-        temp.append(dict(dict(node)['x'])['name'])
+    try:
+        for node in nodes:
+            temp.append(dict(dict(node)['x'])['name'])
+    except:
+        for node in nodes:
+            temp.append(dict(dict(node)['x'])['nombre'])
     return temp
 
 # Busca el nodo que quiere el usuario 
@@ -102,22 +107,20 @@ def delete_node(delete_node):
     for node in aux:
         temp.append(dict(node)['y.nombre'])
     
+    # Consiguiendo los generos, porque no se pueden borrar
     q1 = "MATCH (x:Genero) RETURN x" 
     nodes = session.run(q1)
     nodes = list(nodes)
- 
-    # Metiendo los nombres al 
     for node in nodes:
         temp.append(dict(dict(node)['x'])['name'])
         
+    # Metiendo los años, ya que no se pueden borrar
     q1 = "MATCH (x:Year) RETURN x" 
     nodes = session.run(q1)
     nodes = list(nodes)
- 
-    # Metiendo los nombres al 
     for node in nodes:
         temp.append(dict(dict(node)['x'])['year'])
-    
+         
     # Verificando que no este entre los que no se pueden borrar
     if (delete_node in temp):
         return False
@@ -248,9 +251,3 @@ def doing_century_rec(century_recommendations):
                 century_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 3 el nombre de la cancion 
             
     return century_recommendations #Se regresa la lista actualizada
-
-#PARA EL MAIN
-#print(get_node_name('Genero')) #Muestra los generos posibles
-#print(song_recommendation_genre('Dance pop', 'Pop', 'Electro Pop')) #Buscando por generos similares
-#print(song_recommendation_year('2010')) #Buscando por año similar
-#print(song_recommendation_century()) #Buscando por lo mejor del 2000 B)
