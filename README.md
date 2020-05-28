@@ -26,4 +26,4 @@ user: neo4j     password: 1234
 ```
 python -m pip install neo4j
 ```
-5. Correr el programa :D
+9. Correr el programa :D
