@@ -134,49 +134,32 @@ def song_recommendation_genre(genre1, genre2, genre3):
     genre_recommendations = doing_genre_rec(genre2, genre_recommendations) #Realizando recomendacion genero 2
     genre_recommendations = doing_genre_rec(genre3, genre_recommendations) #Realizando recomendacion genero 3
     
-    
-    final_recommendation = []
-    for rec in genre_recommendations: #Se revisan todas las recomendaciones
-        #Se revisa que el artista este minimo 2 veces (tiene dos generos en comun)
-        #Ademas, se revisa que no este dentro de la nueva lista (para no repetir)
-        if genre_recommendations.count(rec) >= 2 and rec not in final_recommendation:
-            final_recommendation.append(rec)
-    
-    
-    random_artist = random.randrange(len(final_recommendation)) #Generando artista al azar
-    artist = final_recommendation[random_artist] #Eligiendo artista
+    random_song = random.randrange(len(genre_recommendations)) #Generando artista al azar
+    song = genre_recommendations[random_song] #Eligiendo artista
 
-    #Buscando artista en la base
-    q1 = "MATCH (Artista{nombre:'%s'}) - [:PERFORMS] - (Cancion) Return Cancion.nombre" %artist
-    nodes = session.run(q1)
-    nodes = list(nodes)
-    
-    #Generando cancion aleatoria del artista
-    random_song = random.randrange(len(nodes))
-    song_result = re.split("[']",str(nodes[random_song])) #Se separa por apostrofe
-
-    if(len(song_result)!=3): #Significa que la cancion tiene apostrofe
-        result = re.split('["]',str(nodes[random_song])) #Se separa por comillas
-        song_result = result[1] #La posicion 1 contiene el nombre de la cancion 
-    else:
-        song_result = song_result[1] #La posicion 1 contiene el nombre de la cancion 
-          
-    
-    
     #Retornando cancion - artista
-    return song_result + " - " + artist
+    return song
 
 #Params-> genero, lista de artistas generados por genero
 #Return-> lista de artistas generados por genero
 def doing_genre_rec(genre, genre_recommendations):
     #Buscando en la base por genero
-    q1 = "MATCH (n)-[:WRITES]-(Genero{name:'%s'}) return n.nombre" %genre
+    q1 = "MATCH (n)-[:PERFORMS]-(cancion:Cancion)-[:BELONGS]-(Genero{name: '%s'}) return n.nombre, cancion.nombre" %genre
     nodes = session.run(q1)
     nodes = list(nodes)
     
+    
     for node in nodes:
-        result = re.split("[']",str(node)) #Se separa por apostrofe
-        genre_recommendations.append(result[1]) #La posicion 1 contiene el nombre del artista
+        if node not in genre_recommendations: #Se revisa que no este repetido
+            result = re.split("[']",str(node)) #Se separa por apostrofe
+            
+            if(len(result)!=5): #Significa que la cancion tiene apostrofe
+                artist = result[1] #Entonces, el artista es posicion 1
+                result = re.split('["]',str(node)) #Se separa por comillas
+                genre_recommendations.append(artist + " - " + result[1]) #La posicion 1 contiene el nombre de la cancion 
+            else:
+                genre_recommendations.append(result[1]+ " - " + result[3]) #La posicion 1 contiene el nombre del artista, la posicion 3 el nombre de la cancion 
+            
             
     return genre_recommendations #Se regresa la lista actualizada
 
@@ -208,6 +191,7 @@ def doing_year_rec(year, year_recommendations):
             result = re.split("[']",str(node)) #Se separa por apostrofe
             
             if(len(result)!=5): #Significa que la cancion tiene apostrofe
+                print(result)
                 artist = result[2] #Entonces, el artista es posicion 2
                 result = re.split('["]',str(node)) #Se separa por comillas
                 year_recommendations.append(result[1]+ " - " + artist) #La posicion 1 contiene el nombre de la cancion 
