@@ -28,7 +28,7 @@ while ejecucion:
     
     print ('\n-----------Bienvenido al sistemas de recomendación de música-----------')
     print ('\t1. Buscar por géneros similares \n\t2. Buscar por año similar\n\t3. Buscar lo mejor de ambas décadas')
-    print ('\t4. Agregar información\n\t5.Borrar información\n\t6. Ver ultimas recomendaciones\n\t7. Salir')
+    print ('\t4. Agregar información\n\t5. Borrar información\n\t6. Ver ultimas recomendaciones\n\t7. Salir')
     opcion = input('\tIngrese la opción a ejecutar: ')
     
     if len(recomendaciones) > 3:

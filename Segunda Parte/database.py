@@ -134,8 +134,17 @@ def song_recommendation_genre(genre1, genre2, genre3):
     genre_recommendations = doing_genre_rec(genre2, genre_recommendations) #Realizando recomendacion genero 2
     genre_recommendations = doing_genre_rec(genre3, genre_recommendations) #Realizando recomendacion genero 3
     
-    random_artist = random.randrange(len(genre_recommendations)) #Generando artista al azar
-    artist = genre_recommendations[random_artist] #Eligiendo artista
+    
+    final_recommendation = []
+    for rec in genre_recommendations: #Se revisan todas las recomendaciones
+        #Se revisa que el artista este minimo 2 veces (tiene dos generos en comun)
+        #Ademas, se revisa que no este dentro de la nueva lista (para no repetir)
+        if genre_recommendations.count(rec) >= 2 and rec not in final_recommendation:
+            final_recommendation.append(rec)
+    
+    
+    random_artist = random.randrange(len(final_recommendation)) #Generando artista al azar
+    artist = final_recommendation[random_artist] #Eligiendo artista
 
     #Buscando artista en la base
     q1 = "MATCH (Artista{nombre:'%s'}) - [:PERFORMS] - (Cancion) Return Cancion.nombre" %artist
@@ -166,9 +175,8 @@ def doing_genre_rec(genre, genre_recommendations):
     nodes = list(nodes)
     
     for node in nodes:
-        if node not in genre_recommendations: #Se revisa que no este repetido
-            result = re.split("[']",str(node)) #Se separa por apostrofe
-            genre_recommendations.append(result[1]) #La posicion 1 contiene el nombre del artista
+        result = re.split("[']",str(node)) #Se separa por apostrofe
+        genre_recommendations.append(result[1]) #La posicion 1 contiene el nombre del artista
             
     return genre_recommendations #Se regresa la lista actualizada
 
