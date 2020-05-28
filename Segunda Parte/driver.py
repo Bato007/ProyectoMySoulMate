@@ -128,12 +128,16 @@ while ejecucion:
     
     #Borrar
     elif opcion == '5':
+        delV = True
         while delV:
             arti = input('Ingrese el nombre del Artista/Cancion que desea eliminar: ')
-            ar = arti.capitalize()
+            ar = arti.title()
             if (search_node(ar)):
-                delete_node(ar)
-                print('Se ha eliminado con éxito')
+                flag = delete_node(ar)
+                if flag == True:
+                    print('Se ha eliminado con éxito')
+                else:
+                    print('El artista no se puede eliminar de la base de datos')
                 delV = False
             else: 
                 print('No se puede eliminar, pues este no existe')
