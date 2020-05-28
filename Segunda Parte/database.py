@@ -191,7 +191,6 @@ def doing_year_rec(year, year_recommendations):
             result = re.split("[']",str(node)) #Se separa por apostrofe
             
             if(len(result)!=5): #Significa que la cancion tiene apostrofe
-                print(result)
                 artist = result[2] #Entonces, el artista es posicion 2
                 result = re.split('["]',str(node)) #Se separa por comillas
                 year_recommendations.append(result[1]+ " - " + artist) #La posicion 1 contiene el nombre de la cancion 
